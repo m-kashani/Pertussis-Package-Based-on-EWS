@@ -1,4 +1,5 @@
 # Running EWS on California data (All trend-seasonal-log(observed))
+# NaNs are filled by meaning/mode imputation.
 
 import matplotlib.pyplot as plt ;
 import numpy as np ;
@@ -56,7 +57,9 @@ import ews
 import ews_plot
 
 #-----trend
-x = pertussis_trend_state.dropna().values
+x = np.array(pertussis_trend_state)
+x[np.isnan(x)] = np.nanmean(x)
+
 filename="./"+str(state_name)+"_Trend"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
