@@ -1,10 +1,9 @@
-# Running EWS on California data _ trend !
+# Running EWS on California data (All trend-seasonal-log(observed))
 
 import matplotlib.pyplot as plt ;
 import numpy as np ;
 import pandas as pd ;
 import statsmodels.api as sm
-
 
 plt.close("all")
 
@@ -13,7 +12,6 @@ plt.close("all")
 # Getting the data.
 
 data_df = pd.read_csv('pertussis.51.12.csv')
-
 
 # Making the time Series.
 Dates = data_df [ ["YEAR","MONTH"] ]
@@ -57,8 +55,9 @@ pertussis_trend_state = res.trend
 import ews
 import ews_plot
 
+#-----trend
 x = pertussis_trend_state.dropna().values
-filename="./"+str(state_name)+"Trend"+".pdf"
+filename="./"+str(state_name)+"_Trend"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
@@ -66,4 +65,21 @@ signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time
 
 ews_plot.ews_plot (ews_df,signals,filename)
 
-print(filename)
+#-----seasonal
+x = pertussis_seasonal_state.dropna().values
+filename="./"+str(state_name)+"_Seasonal"+".pdf"
+
+ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
+ews_df["Time"] = np.arange(len(x))
+signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
+
+ews_plot.ews_plot (ews_df,signals,filename)
+#------observed_log
+x= np.log(pertussis_observed_state + 0.05).dropna().values
+filename="./"+str(state_name)+"Log_observed"+".pdf"
+
+ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
+ews_df["Time"] = np.arange(len(x))
+signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
+
+ews_plot.ews_plot (ews_df,signals,filename)
