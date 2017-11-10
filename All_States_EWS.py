@@ -1,5 +1,6 @@
 # Running EWS on California data (All trend-seasonal-log(observed))
 # Gives you 150 different pdf ! 50 trend 50 seasonal 50 log(observed)
+# NaNs are filled by meaning/mode imputation.
 
 import matplotlib.pyplot as plt ;
 import numpy as np ;
@@ -58,8 +59,10 @@ for st in states_names:
     # An example of using ews_plot.
 
     #-----trend
-    x = pertussis_trend_state.dropna().values
-    filename="./"+str(st)+"_Trend"+".pdf"
+    x = pertussis_trend_state
+    x[np.isnan(x)] = np.nanmean(x)
+
+    filename="./"+str(st)+"_Trend_Mean_imputation"+".pdf"
 
     ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
     ews_df["Time"] = np.arange(len(x))
@@ -68,8 +71,10 @@ for st in states_names:
     ews_plot.ews_plot (ews_df,signals,filename)
 
     #-----seasonal
-    x = pertussis_seasonal_state.dropna().values
-    filename="./"+str(st)+"_Seasonal"+".pdf"
+    x = pertussis_seasonal_state
+    x[np.isnan(x)] = np.nanmean(x)
+
+    filename="./"+str(st)+"_Seasonal_Mean_imputation"+".pdf"
 
     ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
     ews_df["Time"] = np.arange(len(x))
@@ -78,8 +83,10 @@ for st in states_names:
     ews_plot.ews_plot (ews_df,signals,filename)
 
     #------observed_log
-    x= np.log(pertussis_observed_state + 0.05).dropna().values
-    filename="./"+str(st)+"Log_observed"+".pdf"
+    x= np.log(pertussis_observed_state + 0.05)
+    x[np.isnan(x)] = np.nanmean(x)
+
+    filename="./"+str(st)+"Log_observed_Mean_imputation"+".pdf"
 
     ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
     ews_df["Time"] = np.arange(len(x))
