@@ -6,6 +6,9 @@ import numpy as np ;
 import pandas as pd ;
 import statsmodels.api as sm
 
+from segmented_linear_regression import piecewise
+
+
 plt.close("all")
 
 #================================== Reading the data and Making Time Series ============================================
@@ -50,6 +53,14 @@ pertussis_trend_state = res.trend
 
 # Getting the observed, seasonal, trend.
 
+#--------------------------------------------------Piece wise-----------------------------------------------------------
+
+x = np.array(Time_Series[:len(pertussis_trend_state.dropna())])
+y = np.array(pertussis_trend_state.dropna())
+
+piecewise( x , y)
+
+
 #=======================================================================================================================
 # An example of using ews_plot.
 
@@ -88,3 +99,4 @@ ews_df["Time"] = np.arange(len(x))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
 ews_plot.ews_plot (ews_df,signals,filename)
+
