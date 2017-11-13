@@ -2,13 +2,12 @@
 # Gives you 150 different pdf ! 50 trend 50 seasonal 50 log(observed)
 # NaNs are filled by meaning/mode imputation.
 
-import matplotlib.pyplot as plt ;
-import numpy as np ;
-import pandas as pd ;
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import statsmodels.api as sm
-import ews      #For Using TP :-)
-import ews_plot #For Using TP :-)
-
+import ews      #For Using TobPack :-)
+import ews_plot #For Using TobPack :-)
 
 plt.close("all")
 
