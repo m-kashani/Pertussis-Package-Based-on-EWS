@@ -28,9 +28,12 @@ def ews_plot(df, signals,
     fig.tight_layout(pad=2, w_pad=0.5, h_pad=0.5)
 
     t = df["Time"]
-
+    #axes[0].plot(t,df["linear-segmented"])
+    #
     axes[0].plot(t, df["timeseries"])
     axes[0].locator_params(nbins=3, axis='y')
+
+
     axes[0].set_xlim(min(t),max(t))
     axes[0].set_xticklabels([])
     axes[0].set_title("time series", loc="left", fontsize=12)
