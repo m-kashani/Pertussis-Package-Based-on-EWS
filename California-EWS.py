@@ -60,7 +60,7 @@ import ews_plot
 x = np.array(pertussis_trend_state)
 x[np.isnan(x)] = np.nanmean(x)
 
-filename="./"+str(state_name)+"_Trend"+".pdf"
+filename="Cal_using_mean/"+str(state_name)+"_Trend"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
@@ -70,7 +70,7 @@ ews_plot.ews_plot (ews_df,signals,filename)
 
 #-----seasonal
 x = pertussis_seasonal_state.dropna().values
-filename="./"+str(state_name)+"_Seasonal"+".pdf"
+filename="Cal_using_mean/"+str(state_name)+"_Seasonal"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
@@ -79,7 +79,7 @@ signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time
 ews_plot.ews_plot (ews_df,signals,filename)
 #------observed_log
 x= np.log(pertussis_observed_state + 0.05).dropna().values
-filename="./"+str(state_name)+"Log_observed"+".pdf"
+filename="Cal_using_mean/"+str(state_name)+"Log_observed"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
