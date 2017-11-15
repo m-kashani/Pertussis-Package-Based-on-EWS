@@ -1,5 +1,6 @@
 # Running EWS on California data (All trend-seasonal-log(observed))
 # NaNs are filled by meaning/mode imputation.
+# I am in about to : Adding another figure(linear reg)
 
 import matplotlib.pyplot as plt ;
 import numpy as np ;
@@ -58,7 +59,7 @@ pertussis_trend_state = res.trend
 x = np.array(Time_Series[:len(pertussis_trend_state.dropna())])
 y = np.array(pertussis_trend_state.dropna())
 
-piecewise( x , y)
+piecewise_fit = piecewise( x , y)
 
 
 #=======================================================================================================================
@@ -95,6 +96,8 @@ filename="Cal_using_mean/"+str(state_name)+"Log_observed"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
+
+ews_df["Linear"] = piecewise_fit
 
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 

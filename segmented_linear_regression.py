@@ -52,7 +52,10 @@ def piecewise(x,y):
     plt.plot(x[x <x[bp]],y_fit[x < x[bp]],'r')
     plt.plot(x[x >=x[bp]],y_fit[x >=x[bp]],'r')
 
-    plt.show()
+    return y_fit.reshape(-1)
+    #print(y_fit[bp])
+
+    #plt.show()
 #=======================================================================================================================
 
 #simple example:

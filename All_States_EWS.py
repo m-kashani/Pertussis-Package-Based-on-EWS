@@ -59,38 +59,37 @@ for st in states_names:
 
     #-----trend
     x = pertussis_trend_state
-    x[np.isnan(x)] = np.nanmean(x)
 
-    filename="All_states_using_mean/"+str(st)+"_Trend_Mean_imputation"+".pdf"
+    filename="All_states_No_imputation/"+str(st)+"_Trend_Mean_imputation"+".pdf"
 
     ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
     ews_df["Time"] = np.arange(len(x))
     signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
-    ews_plot.ews_plot (ews_df,signals,filename)
+    ews_plot.ews_plot (ews_df,signals,filename,title="trend-mean-imputed")
 
     #-----seasonal
     x = pertussis_seasonal_state
     x[np.isnan(x)] = np.nanmean(x)
 
-    filename="All_states_using_mean/"+str(st)+"_Seasonal_Mean_imputation"+".pdf"
+    filename="All_states_No_imputation/"+str(st)+"_Seasonal_Mean_imputation"+".pdf"
 
     ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
     ews_df["Time"] = np.arange(len(x))
     signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
-    ews_plot.ews_plot (ews_df,signals,filename)
+    ews_plot.ews_plot (ews_df,signals,filename,title="seasonal-mean-imputed")
 
     #------observed_log
     x= np.log(pertussis_observed_state + 0.05)
     x[np.isnan(x)] = np.nanmean(x)
 
-    filename="All_states_using_mean/"+str(st)+"Log_observed_Mean_imputation"+".pdf"
+    filename="All_states_No_imputation/"+str(st)+"Log_observed_Mean_imputation"+".pdf"
 
     ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
     ews_df["Time"] = np.arange(len(x))
     signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
-    ews_plot.ews_plot (ews_df,signals,filename)
+    ews_plot.ews_plot (ews_df,signals,filename,title="observed-log-mean-imputed")
 
 print("END")

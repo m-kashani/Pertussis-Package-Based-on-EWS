@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 
 #Plot EWS and scaled EWS
-def ews_plot(df, signals,
-                 filename="./notes/decision_function.pdf", title=None):
+def ews_plot(df, signals, filename="./notes/decision_function.pdf", title=None):
     '''
     Plot EWS
     :param df: pandas.dataframe or dict with columns/entries named: Time, timeseries and all EWS listed in signals
@@ -28,7 +27,8 @@ def ews_plot(df, signals,
     fig.tight_layout(pad=2, w_pad=0.5, h_pad=0.5)
 
     t = df["Time"]
-    #axes[0].plot(t,df["linear-segmented"])
+    #
+    axes[0].plot(t,df["piecewise_fit"])
     #
     axes[0].plot(t, df["timeseries"])
     axes[0].locator_params(nbins=3, axis='y')

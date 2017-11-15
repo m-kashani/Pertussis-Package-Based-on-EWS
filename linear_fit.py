@@ -1,4 +1,4 @@
-# this function is using in segmented_linear_regression function.
+# this function is being used in segmented_linear_regression function.
 
 import numpy as np
 def linear_fit( x , a1, b1, a2, b2, bp ):
