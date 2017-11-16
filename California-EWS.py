@@ -56,7 +56,7 @@ pertussis_trend_state = res.trend
 
 # Getting the observed, seasonal, trend.
 
-#--------------------------------------------------Piece wise-----------------------------------------------------------
+#-------------------------------------------- Piece wise  Trend -----------------------------------------------------------
 
 x = np.array(Time_Series[:len(pertussis_trend_state.dropna())])
 y = np.array(pertussis_trend_state.dropna())
@@ -67,7 +67,8 @@ piecewise_fited = piecewise( x , y)
 # An example of using ews_plot.
 # ews and ews_plot packages are necessary to import.
 
-x = np.array(pertussis_trend_state)
+x = np.array(y)
+
 x[np.isnan(x)] = np.nanmean(x)
 
 #-----trend-------------------------------------------------------------------------------------------------------------
@@ -78,7 +79,7 @@ ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
-#ews_df["piecewise_fited"] = piecewise_fited #Added Now
+ews_df["piecewise_fited"] = piecewise_fited #Added Now
 
 ews_plot.ews_plot (ews_df,signals,filename,"trend-mean-imputed")
 

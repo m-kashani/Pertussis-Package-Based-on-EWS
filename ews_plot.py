@@ -27,8 +27,8 @@ def ews_plot(df, signals, filename="./notes/decision_function.pdf", title=None):
     fig.tight_layout(pad=2, w_pad=0.5, h_pad=0.5)
 
     t = df["Time"]
-    #
- #   axes[0].plot(t,df["piecewise_fited"])
+    # For adding a new plot on top of it
+    axes[0].plot(t,df["piecewise_fited"],'r')
     #
     axes[0].plot(t, df["timeseries"])
     axes[0].locator_params(nbins=3, axis='y')
