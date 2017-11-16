@@ -2,10 +2,12 @@
 # NaNs are filled by meaning/mode imputation.
 # I am in about to : Adding another figure(linear reg)
 
-import matplotlib.pyplot as plt ;
-import numpy as np ;
-import pandas as pd ;
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import statsmodels.api as sm
+import ews
+import ews_plot
 
 from segmented_linear_regression import piecewise
 
@@ -58,20 +60,17 @@ pertussis_trend_state = res.trend
 
 x = np.array(Time_Series[:len(pertussis_trend_state.dropna())])
 y = np.array(pertussis_trend_state.dropna())
-print(len(x))
-print(len(y))
-piecewise_fited = piecewise( x , y)
 
+piecewise_fited = piecewise( x , y)
 
 #=======================================================================================================================
 # An example of using ews_plot.
+# ews and ews_plot packages are necessary to import.
 
-import ews
-import ews_plot
-
-#-----trend--------------------------------------------------------------------
 x = np.array(pertussis_trend_state)
 x[np.isnan(x)] = np.nanmean(x)
+
+#-----trend-------------------------------------------------------------------------------------------------------------
 
 filename="Cal_using_mean/"+str(state_name)+"_Trend"+".pdf"
 
@@ -79,11 +78,13 @@ ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
-ews_df["piecewise_fited"] = piecewise_fited #Added Now
+#ews_df["piecewise_fited"] = piecewise_fited #Added Now
 
-ews_plot.ews_plot (ews_df,signals,filename)
+ews_plot.ews_plot (ews_df,signals,filename,"trend-mean-imputed")
 
-#-----seasonal-----------------------------------------------------------------
+
+#-----seasonal----------------------------------------------------------------------------------------------------------
+'''
 x = pertussis_seasonal_state.dropna().values
 filename="Cal_using_mean/"+str(state_name)+"_Seasonal"+".pdf"
 
@@ -92,19 +93,17 @@ ews_df["Time"] = np.arange(len(x))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
 ews_df["piecewise_fited"] = piecewise_fited #Added Now
-ews_plot.ews_plot (ews_df,signals,filename)
+ews_plot.ews_plot (ews_df,signals,filename,"seasonal-mean-imputed")
 
-#------observed_log-------------------------------------------------------------
+#------observed_log-----------------------------------------------------------------------------------------------------
 x= np.log(pertussis_observed_state + 0.05).dropna().values
 filename="Cal_using_mean/"+str(state_name)+"Log_observed"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
 
-ews_df["Linear"] = piecewise_fited
-
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
 ews_df["piecewise_fited"] = piecewise_fited #Added Now
-ews_plot.ews_plot (ews_df,signals,filename)
-
+ews_plot.ews_plot (ews_df,signals,filename,"Log_observed_Mean_imputation")
+'''
