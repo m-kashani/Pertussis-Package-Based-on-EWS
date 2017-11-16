@@ -28,7 +28,7 @@ def ews_plot(df, signals, filename="./notes/decision_function.pdf", title=None):
 
     t = df["Time"]
     #
-    axes[0].plot(t,df["piecewise_fit"])
+    axes[0].plot(t,df["piecewise_fited"])
     #
     axes[0].plot(t, df["timeseries"])
     axes[0].locator_params(nbins=3, axis='y')

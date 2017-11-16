@@ -58,8 +58,9 @@ pertussis_trend_state = res.trend
 
 x = np.array(Time_Series[:len(pertussis_trend_state.dropna())])
 y = np.array(pertussis_trend_state.dropna())
-
-piecewise_fit = piecewise( x , y)
+print(len(x))
+print(len(y))
+piecewise_fited = piecewise( x , y)
 
 
 #=======================================================================================================================
@@ -68,7 +69,7 @@ piecewise_fit = piecewise( x , y)
 import ews
 import ews_plot
 
-#-----trend
+#-----trend--------------------------------------------------------------------
 x = np.array(pertussis_trend_state)
 x[np.isnan(x)] = np.nanmean(x)
 
@@ -78,9 +79,11 @@ ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
+ews_df["piecewise_fited"] = piecewise_fited #Added Now
+
 ews_plot.ews_plot (ews_df,signals,filename)
 
-#-----seasonal
+#-----seasonal-----------------------------------------------------------------
 x = pertussis_seasonal_state.dropna().values
 filename="Cal_using_mean/"+str(state_name)+"_Seasonal"+".pdf"
 
@@ -88,18 +91,20 @@ ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
+ews_df["piecewise_fited"] = piecewise_fited #Added Now
 ews_plot.ews_plot (ews_df,signals,filename)
 
-#------observed_log
+#------observed_log-------------------------------------------------------------
 x= np.log(pertussis_observed_state + 0.05).dropna().values
 filename="Cal_using_mean/"+str(state_name)+"Log_observed"+".pdf"
 
 ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(x))
 
-ews_df["Linear"] = piecewise_fit
+ews_df["Linear"] = piecewise_fited
 
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
+ews_df["piecewise_fited"] = piecewise_fited #Added Now
 ews_plot.ews_plot (ews_df,signals,filename)
 
