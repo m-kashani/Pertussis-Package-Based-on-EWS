@@ -1,6 +1,7 @@
 # Running EWS on California data (All trend-seasonal-log(observed))
 # NaNs are filled by meaning/mode imputation.
 # I am in about to : Adding another figure(linear reg)
+# Not ready yet ... Maybe use R in future ... Not Sure ... Ask Alireza
 
 import matplotlib.pyplot as plt
 import numpy as np
