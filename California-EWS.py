@@ -68,16 +68,16 @@ piecewise_fited = piecewise( x , y)
 # An example of using ews_plot.
 # ews and ews_plot packages are necessary to import.
 
-x = np.array(y)
+#x = np.array(y)
 
-x[np.isnan(x)] = np.nanmean(x)
+#x[np.isnan(x)] = np.nanmean(x)
 
 #-----trend-------------------------------------------------------------------------------------------------------------
 
 filename="Cal_using_mean/"+str(state_name)+"_Trend"+".pdf"
 
-ews_df = ews.get_ews(x, windowsize=100, ac_lag=1)
-ews_df["Time"] = np.arange(len(x))
+ews_df = ews.get_ews(y, windowsize=100, ac_lag=1)
+ews_df["Time"] = np.arange(len(y))
 signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time","coefficient_of_variation","kurtosis","skewness"]
 
 ews_df["piecewise_fited"] = piecewise_fited #Added Now
