@@ -12,9 +12,7 @@ import ews_plot
 
 from segmented_linear_regression import piecewise
 
-
 plt.close("all")
-
 #================================== Reading the data and Making Time Series ============================================
 
 # Getting the data.
@@ -24,7 +22,7 @@ data_df = pd.read_csv('pertussis.51.12.csv')
 # Making the time Series.
 Dates = data_df [ ["YEAR","MONTH"] ]
 time = Dates['YEAR'].astype(str) + "-" + Dates['MONTH'].astype(str) + "-01" #For each state ?
-time = pd.to_datetime(time , format = '%Y-%m-%d')
+time = pd.to_datetime(time , format = '%Y-%m-%d', errors='ignore')
 
 #====================================== Solving time problem [ns ] to float[64] =======================================
 
@@ -72,9 +70,11 @@ piecewise_fited = piecewise( x , y)
 
 #x[np.isnan(x)] = np.nanmean(x)
 
+y[np.isnan(y)] = np.nanmean(y)
+
 #-----trend-------------------------------------------------------------------------------------------------------------
 
-filename="Cal_using_mean/"+str(state_name)+"_Trend"+".pdf"
+filename="Cal_using_mean/"+str(state_name)+"_Trendssssssssssssssssss"+".pdf"
 
 ews_df = ews.get_ews(y, windowsize=100, ac_lag=1)
 ews_df["Time"] = np.arange(len(y))
@@ -83,7 +83,6 @@ signals = ["variance","mean","index_of_dispersion","autocorrelation","decay_time
 ews_df["piecewise_fited"] = piecewise_fited #Added Now
 
 ews_plot.ews_plot (ews_df,signals,filename,"trend-mean-imputed")
-
 
 #-----seasonal----------------------------------------------------------------------------------------------------------
 '''
