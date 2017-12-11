@@ -60,6 +60,7 @@ pertussis_trend_state = res.trend
 x = np.array(Time_Series[:len(pertussis_trend_state.dropna())])
 y = np.array(pertussis_trend_state.dropna())
 
+piecewise(x,y)
 piecewise_fited = piecewise( x , y)
 
 #=======================================================================================================================
